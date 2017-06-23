@@ -23,7 +23,7 @@ int cgiMain()
 		    <link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
 		</head>");
 
-	char id[32] = "\0";
+	char tno[32] = "\0";
 	int status = 0;
 	char ch;
 	//fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
@@ -39,10 +39,10 @@ int cgiMain()
 	}
 fclose(fd);
 
-	status = cgiFormString("id",  id, 32);
+	status = cgiFormString("tno",  tno, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get cno error!\n");
+		fprintf(cgiOut, "get tno error!\n");
 		return 1;
 	}
 
@@ -52,14 +52,15 @@ fclose(fd);
 
 
 
-	if (id[0] == '*')
+	if (tno[0] == '*')
 	{
-		sprintf(sql, "select * from score_information where Sstatus=2");
+		sprintf(sql, "select * from teacher_course");
 	}
 	else
 	{
-		sprintf(sql,"select * from score_information where id = %d and Sstatus=2", atoi(id));
+		sprintf(sql,"select * from teacher_course where tno = %d", atoi(tno));
 	}
+
 
 	//初始化
 	db = mysql_init(NULL);
@@ -126,7 +127,6 @@ fclose(fd);
 		fprintf(cgiOut,"</tr>");
 	}
 	fprintf(cgiOut,"</table></div>");
-
 
 	mysql_close(db);
 	return 0;

@@ -10,7 +10,7 @@ char * footname = "footer.html";
 int cgiMain()
 {
   FILE * fd;
-	char name[32] = "\0";
+	char sname[32] = "\0";
 	char age[16] = "\0";
 	char id[32] = "\0";
 	char sex[32]= "\0";
@@ -31,10 +31,10 @@ int cgiMain()
 	}
 	fclose(fd);
 
-	status = cgiFormString("name",  name, 32);
+	status = cgiFormString("sname",  sname, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get sname error!\n");
 		return 1;
 	}
 
@@ -89,7 +89,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "update information set name='%s', age= %d, sex='%s', sid= %d where id = %d ", name, atoi(age), sex, atoi(sid), atoi(id));
+	sprintf(sql, "update information set sname='%s', age= %d, sex='%s', sid= %d where id = %d ", sname, atoi(age), sex, atoi(sid), atoi(id));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
